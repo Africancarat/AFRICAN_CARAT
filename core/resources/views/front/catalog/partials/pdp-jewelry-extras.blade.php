@@ -4,8 +4,6 @@
 
 @once
     <script>
-        // Metal → image map: items.pdp_metal_variants, else items_prices.image JSON.
-        // Each entry: { key|slug, label|name, image|photo, images|gallery }.
         window.__pdpMetalVariantMap = @json($metalVariantMap);
     </script>
 @endonce
@@ -315,6 +313,12 @@
         : ($item->itemPrice && $pdpLineUnitBase > 0
             ? PriceHelper::setCurrencyPrice($pdpLineUnitBase)
             : PriceHelper::grandCurrencyPrice($item));
+$pdpMakingCharge = null;
+
+if (!empty($item->details)) {
+    preg_match('/Making Charge:\s*(.*?)Diamonds:/is', strip_tags($item->details), $matches);
+    $pdpMakingCharge = trim($matches[1] ?? '');
+}
 @endphp
 
 <div class="ij-pdp-configurator luxury-pdp-configurator" data-ij-pdp-config>
@@ -332,12 +336,18 @@
                     <span class="ij-pdp-specs__value">{{ number_format((float) $pdpGoldWeight, 2) }}g</span>
                 </p>
             @endif
-            @if (filled($pdpLabourPerGram))
-                <p class="ij-pdp-specs__line">
-                    <span class="ij-pdp-specs__label">{{ __('Making Charge') }}:</span>
-                    <span class="ij-pdp-specs__value">{{ $pdpLabourPerGram }}</span>
-                </p>
-            @endif
+{{--            @if (filled($pdpLabourPerGram))--}}
+{{--                <p class="ij-pdp-specs__line">--}}
+{{--                    <span class="ij-pdp-specs__label">{{ __('Making Charge') }}:</span>--}}
+{{--                    <span class="ij-pdp-specs__value">{{ $pdpLabourPerGram }}</span>--}}
+{{--                </p>--}}
+{{--            @endif--}}
+                @if (filled($pdpMakingCharge))
+                    <p class="ij-pdp-specs__line">
+                        <span class="ij-pdp-specs__label">{{ __('Making Charge') }}:</span>
+                        <span class="ij-pdp-specs__value">{{ $pdpMakingCharge }}</span>
+                    </p>
+                @endif
             @if ($pdpDiamondLineParts !== [])
                 <p class="ij-pdp-specs__line">
                     <span class="ij-pdp-specs__label">{{ __('Diamonds') }}:</span>
@@ -683,45 +693,56 @@
     return String(str || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
   }
 
-  function resolvePdpTierPrice() {
-    var tiers = window.__pdpTierPriceMap;
-    if (!tiers) return null;
+    function resolvePdpTierPrice() {
+        var tiers = window.__pdpTierPriceMap;
+        if (!tiers) return null;
 
-    var kEl = document.getElementById('pdp_selected_gold_karat');
-    var qEl = document.getElementById('pdp_selected_diamond_clarity');
-    var kToken = normalizeKaratToken(kEl ? String(kEl.value || '').trim() : '');
-    var qToken = normalizeClarityToken(qEl ? String(qEl.value || '').trim() : '');
+        var kEl = document.getElementById('pdp_selected_gold_karat');
+        var qEl = document.getElementById('pdp_selected_diamond_clarity');
 
-    var total = 0;
-    var has = false;
+        var kToken = normalizeKaratToken(kEl ? String(kEl.value || '').trim() : '');
+        var qToken = normalizeClarityToken(qEl ? String(qEl.value || '').trim() : '');
 
-    var goldKey = null;
-    if (kToken.indexOf('18') >= 0) goldKey = '18K';
-    else if (kToken.indexOf('14') >= 0) goldKey = '14K';
-    if (goldKey && tiers.gold && tiers.gold[goldKey] != null) {
-      var g = parseFloat(tiers.gold[goldKey]);
-      if (isFinite(g)) {
-        total += g;
-        has = true;
-      }
+        var qualityPrice = 0;
+        var goldPrice = 0;
+
+        // Gold Karat Price
+        var goldKey = null;
+        if (kToken.indexOf('18') >= 0) goldKey = '18K';
+        else if (kToken.indexOf('14') >= 0) goldKey = '14K';
+
+        if (goldKey && tiers.gold && tiers.gold[goldKey] != null) {
+            goldPrice = parseFloat(tiers.gold[goldKey]) || 0;
+        }
+
+        // Diamond Quality Price
+        var clarityKey = null;
+        if (qToken.indexOf('VVSEF') >= 0) clarityKey = 'VVS / EF';
+        else if (qToken.indexOf('VVSGH') >= 0) clarityKey = 'VVS / GH';
+        else if (qToken.indexOf('VSGH') >= 0) clarityKey = 'VS / GH';
+        else if (qToken.indexOf('SIIJ') >= 0) clarityKey = 'SI / IJ';
+
+        if (clarityKey && tiers.clarity && tiers.clarity[clarityKey] != null) {
+            qualityPrice = parseFloat(tiers.clarity[clarityKey]) || 0;
+        }
+
+        // Gold Weight from blade
+        var goldWeight = {{ (float) ($pdpGoldWeight ?? 0) }};
+
+        // Gold Rate per gram
+        var goldRate = 1800;
+
+        // Gold Amount
+        var goldAmount = goldWeight * goldRate;
+
+        // Subtotal
+        var subtotal = qualityPrice + goldPrice + goldAmount;
+
+        // 10% Margin
+        var finalPrice = subtotal * 1.10;
+
+        return Math.round(finalPrice);
     }
-
-    var clarityKey = null;
-    if (qToken.indexOf('VVSEF') >= 0) clarityKey = 'VVS / EF';
-    else if (qToken.indexOf('VVSGH') >= 0) clarityKey = 'VVS / GH';
-    else if (qToken.indexOf('VSGH') >= 0) clarityKey = 'VS / GH';
-    else if (qToken.indexOf('SIIJ') >= 0) clarityKey = 'SI / IJ';
-    if (clarityKey && tiers.clarity && tiers.clarity[clarityKey] != null) {
-      var c = parseFloat(tiers.clarity[clarityKey]);
-      if (isFinite(c)) {
-        total += c;
-        has = true;
-      }
-    }
-
-    if (!has || total <= 0) return null;
-    return Math.round(total * 100) / 100;
-  }
 
   function applyPdpTierPrice() {
     var base = resolvePdpTierPrice();

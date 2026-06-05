@@ -208,6 +208,7 @@
       }
       image.src = url;
       imageWrap.classList.remove('d-none');
+      image.classList.remove('d-none'); // <-- ADD THIS
     }
 
     function setActiveThumb(activeBtn) {
@@ -234,6 +235,9 @@
       if (viewer) viewer.classList.add('d-none');
       if (fallback) fallback.classList.add('d-none');
       if (empty) empty.classList.add('d-none');
+      if (image) {
+        image.classList.remove('d-none'); // <-- ADD THIS
+      }
       ensureStageImage(url);
       setActiveThumb(activeBtn);
       setMainImageSrc(url);

@@ -342,6 +342,8 @@ class JewelryPdpMediaService
 
     private static function resolveUrl(string $path): string
     {
+        $path = str_replace('items_prices/', '', $path);
+
         if (! self::isLikelyImagePath($path)) {
             return '';
         }
