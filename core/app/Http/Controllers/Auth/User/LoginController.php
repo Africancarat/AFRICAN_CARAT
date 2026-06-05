@@ -72,7 +72,7 @@ class LoginController extends Controller
       if ($request->has('modal')) {
         return redirect()->back();
       } else {
-        return redirect()->intended(route('user.dashboard'));
+        return redirect()->intended(route('front.index'));
       }
     }
 
@@ -117,7 +117,7 @@ class LoginController extends Controller
       }
 
       Auth::login($user);
-      return redirect()->route('user.dashboard')->withSuccess(__('Email Verified Successfully.'));
+      return redirect()->route('front.index')->withSuccess(__('Email Verified Successfully.'));
     }
 
 

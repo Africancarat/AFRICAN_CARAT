@@ -47,13 +47,19 @@
 .hw-header__tools {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.25rem;
   flex: 1 1 0;
   min-width: 0;
+  max-width: 42%;
+}
+
+.hw-header__tools--left {
+  justify-content: flex-start;
 }
 
 .hw-header__tools--right {
   justify-content: flex-end;
+  flex-wrap: nowrap;
 }
 
 .hw-header__icon-btn {
@@ -84,6 +90,64 @@
   position: relative;
 }
 
+/* Currency + account dropdowns (desktop toolbar) */
+.site-header--hw .hw-header__tools .hw-header__dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  margin: 0;
+  vertical-align: middle;
+}
+
+.site-header--hw .hw-header__tools .hw-header__icon-btn {
+  flex: 0 0 auto;
+}
+
+.site-header--hw .hw-header__dropdown .hw-header__dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  right: 0;
+  z-index: 1200;
+  min-width: 11rem;
+  padding: 0.5rem 0;
+  margin: 0;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+  pointer-events: none;
+}
+
+.site-header--hw .hw-header__dropdown:hover .hw-header__dropdown-menu,
+.site-header--hw .hw-header__dropdown:focus-within .hw-header__dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.site-header--hw .hw-header__dropdown-menu a {
+  display: flex;
+  align-items: center;
+  padding: 0.45rem 1rem;
+  color: #1a1a1a !important;
+  font-size: 0.875rem;
+  text-decoration: none !important;
+  white-space: nowrap;
+}
+
+.site-header--hw .hw-header__dropdown-menu a:hover,
+.site-header--hw .hw-header__dropdown-menu a.active {
+  background: rgba(184, 134, 11, 0.1);
+  color: #1a1a1a !important;
+}
+
 .hw-header__cart-count {
   position: absolute;
   top: 0.1rem;
@@ -107,6 +171,7 @@
   transform: translate(-50%, -50%);
   z-index: 2;
   flex: 0 1 auto;
+  max-width: min(360px, 40vw);
   text-align: center;
   pointer-events: none;
 }

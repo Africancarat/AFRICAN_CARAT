@@ -52,6 +52,53 @@
                     aria-label="{{ __('Wishlist') }}">
                     <i class="icon-heart" aria-hidden="true"></i>
                 </a>
+
+                <div class="hw-header__dropdown d-none d-lg-inline-flex">
+                    <button type="button" class="hw-header__icon-btn" aria-label="{{ __('Currency') }}"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="icon-globe" aria-hidden="true"></i>
+                    </button>
+                    <div class="hw-header__dropdown-menu" role="menu">
+                        @foreach (DB::table('currencies')->get() as $currency)
+                            <a role="menuitem"
+                                class="{{ Session::get('currency') == $currency->id ? 'active' : ($currency->is_default == 1 && !Session::has('currency') ? 'active' : '') }}"
+                                href="{{ route('front.currency.setup', $currency->id) }}">
+                                <i class="icon-chevron-right pr-2"></i>{{ $currency->name }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="hw-header__dropdown d-none d-lg-inline-flex">
+                    @guest
+                        <button type="button" class="hw-header__icon-btn" aria-label="{{ __('Account') }}"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="icon-user" aria-hidden="true"></i>
+                        </button>
+                        <div class="hw-header__dropdown-menu" role="menu">
+                            <a role="menuitem" href="{{ route('user.login') }}">
+                                <i class="icon-chevron-right pr-2"></i>{{ __('Login') }}
+                            </a>
+                            <a role="menuitem" href="{{ route('user.register') }}">
+                                <i class="icon-chevron-right pr-2"></i>{{ __('Register') }}
+                            </a>
+                        </div>
+                    @else
+                        <button type="button" class="hw-header__icon-btn" aria-label="{{ Auth::user()->first_name }}"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="icon-user" aria-hidden="true"></i>
+                        </button>
+                        <div class="hw-header__dropdown-menu" role="menu">
+                            <a role="menuitem" href="{{ route('user.dashboard') }}">
+                                <i class="icon-chevron-right pr-2"></i>{{ __('Dashboard') }}
+                            </a>
+                            <a role="menuitem" href="{{ route('user.logout') }}">
+                                <i class="icon-chevron-right pr-2"></i>{{ __('Logout') }}
+                            </a>
+                        </div>
+                    @endguest
+                </div>
+
                 <a href="{{ route('front.cart') }}"
                     class="hw-header__icon-btn hw-header__icon-btn--cart hw-header__icon-btn--compact-hide"
                     aria-label="{{ __('Cart') }}" title="{{ __('View cart') }}">
@@ -119,8 +166,10 @@
                         <li><a href="{{ route('diamonds.compare.index') }}">{{ __('Compare') }}</a></li>
                         @guest
                             <li><a href="{{ route('user.login') }}">{{ __('Login') }}</a></li>
+                            <li><a href="{{ route('user.register') }}">{{ __('Register') }}</a></li>
                         @else
                             <li><a href="{{ route('user.dashboard') }}">{{ __('Dashboard') }}</a></li>
+                            <li><a href="{{ route('user.logout') }}">{{ __('Logout') }}</a></li>
                         @endguest
                         @foreach (DB::table('currencies')->get() as $currency)
                             <li>
