@@ -1,0 +1,155 @@
+/**
+ * Williams Caslon Text — brand serif (Harry Winston–style).
+ * Drop licensed files into: assets/front/fonts/williams-caslon/
+ * Supported names: WilliamsCaslonText-Regular.woff2, -Italic, -Bold (also .woff / .otf / .ttf)
+ */
+@font-face {
+  font-family: 'WilliamsCaslonText';
+  src: local('Williams Caslon Text'),
+    local('WilliamsCaslonText'),
+    local('Williams Caslon Text Regular'),
+    url('../fonts/williams-caslon/WilliamsCaslonText-Regular.woff2') format('woff2'),
+    url('../fonts/williams-caslon/WilliamsCaslonText-Regular.woff') format('woff'),
+    url('../fonts/williams-caslon/WilliamsCaslonText-Regular.otf') format('opentype'),
+    url('../fonts/williams-caslon/WilliamsCaslonText-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'WilliamsCaslonText';
+  src: local('Williams Caslon Text Italic'),
+    local('WilliamsCaslonText-Italic'),
+    url('../fonts/williams-caslon/WilliamsCaslonText-Italic.woff2') format('woff2'),
+    url('../fonts/williams-caslon/WilliamsCaslonText-Italic.woff') format('woff'),
+    url('../fonts/williams-caslon/WilliamsCaslonText-Italic.otf') format('opentype'),
+    url('../fonts/williams-caslon/WilliamsCaslonText-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'WilliamsCaslonText';
+  src: local('Williams Caslon Text Bold'),
+    local('WilliamsCaslonText-Bold'),
+    url('../fonts/williams-caslon/WilliamsCaslonText-Bold.woff2') format('woff2'),
+    url('../fonts/williams-caslon/WilliamsCaslonText-Bold.woff') format('woff'),
+    url('../fonts/williams-caslon/WilliamsCaslonText-Bold.otf') format('opentype'),
+    url('../fonts/williams-caslon/WilliamsCaslonText-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --luxury-serif: 'WilliamsCaslonText', 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --luxury-brand: var(--luxury-serif);
+  --luxury-sans: 'Jost', 'Montserrat', sans-serif;
+  /* Shared: footer widget titles, main nav row, mega menus */
+  --luxury-nav-title-size: 14px;
+}
+
+body,
+.site-header,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.luxury-headline,
+.luxury-nav__link,
+.main-link.luxury-nav__link,
+.site-header--hw .hw-nav .luxury-nav__link,
+.site-header--hw .hw-nav .main-link.luxury-nav__link,
+.btn-luxury,
+.hero-slider .item h1,
+.hero-slider .item h2,
+.section-title h2,
+.product-card .product-title,
+.product-card .product-title a {
+  font-family: var(--luxury-serif) !important;
+}
+
+/* Forms & small UI: keep readable sans where theme sets Jost */
+input,
+textarea,
+select,
+.form-control,
+.btn:not(.btn-luxury),
+.hw-header__search-input {
+  font-family: var(--luxury-sans, 'Jost', sans-serif) !important;
+}
+
+/* Footer: standard sans, normal casing (not brand serif) */
+.site-footer,
+.site-footer p,
+.site-footer a,
+.site-footer li,
+.site-footer strong,
+.site-footer .footer-copyright,
+.site-footer .widget-links ul > li > a,
+.site-footer .luxury-footer__links,
+.site-footer .luxury-footer__links a {
+  font-family: var(--luxury-sans, 'Jost', 'Montserrat', sans-serif) !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  font-weight: 400;
+}
+
+/* Footer column headings: Williams Caslon + gold border underline */
+.site-footer h3.widget-title,
+.site-footer .widget-title {
+  display: inline-block;
+  max-width: 100%;
+  font-family: var(--luxury-serif) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 400;
+  font-size: var(--luxury-nav-title-size);
+  color: #fff !important;
+  border: none !important;
+  border-bottom: 1px solid #b8860b !important;
+  text-decoration: none !important;
+  padding-bottom: 0.65em;
+  margin-bottom: 1.25rem;
+}
+
+.site-footer .widget-title::after {
+  display: none !important;
+}
+
+.site-footer .btn-luxury {
+  font-family: var(--luxury-sans, 'Jost', 'Montserrat', sans-serif) !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}
+
+.custom-trust .trust-photo {
+  border: none !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  background: transparent !important;
+}
+
+.custom-trust .trust-photo {
+  width: 100px !important;
+  height: 100px !important;
+}
+
+.custom-trust .trust-photo--igi,
+.custom-trust .trust-photo--checkout,
+.custom-trust .trust-photo--large {
+  width: auto !important;
+  min-width: 220px !important;
+  max-width: 360px !important;
+  height: 140px !important;
+  min-height: 140px !important;
+  padding: 0 !important;
+}
+
+.custom-trust .trust-photo--checkout {
+  filter: brightness(0) invert(1) !important;
+}

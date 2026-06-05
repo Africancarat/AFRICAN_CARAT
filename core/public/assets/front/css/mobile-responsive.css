@@ -1,0 +1,518 @@
+/**
+ * Site-wide mobile & tablet responsive layer (loads after theme CSS).
+ */
+
+/* ----- Global ----- */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+img,
+video,
+svg,
+iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+.container,
+.container-fluid {
+  padding-left: max(1rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1rem, env(safe-area-inset-right, 0px));
+}
+
+.table-responsive-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ----- Harry Winston header ----- */
+@media (max-width: 991.98px) {
+  .site-header.site-header--hw {
+    --hw-top-bar-min-height: 72px;
+  }
+
+  .site-header--hw .hw-header__top-inner {
+    padding: 0.65rem 0.75rem;
+    min-height: var(--hw-top-bar-min-height);
+  }
+
+  .site-header--hw .hw-header__menu-btn {
+    display: inline-flex !important;
+  }
+
+  .site-header--hw .hw-header__logo-main {
+    max-width: min(240px, 52vw);
+    max-height: 44px;
+  }
+
+  .site-header--hw .hw-header__icon-btn--compact-hide {
+    display: inline-flex !important;
+  }
+
+  .site-header--hw .hw-header__nav {
+    display: none !important;
+  }
+
+  .site-header--hw .luxury-mega-panel .row {
+    flex-direction: column;
+  }
+
+  .site-header--hw .luxury-mega-panel .luxury-mega-col--media {
+    min-height: 200px;
+    order: -1;
+  }
+
+  .site-header--hw .luxury-mega-panel .luxury-mega-media__img {
+    min-height: 200px;
+  }
+
+  .site-header--hw .mobile-menu {
+    width: min(100vw, 400px);
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .site-header--hw .hw-header__tools {
+    gap: 0.15rem;
+  }
+
+  .site-header--hw .hw-header__icon-btn {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .site-header--hw .hw-header__logo-main {
+    max-width: min(200px, 48vw);
+    max-height: 38px;
+  }
+}
+
+/* ----- Luxury hero ----- */
+@media (max-width: 991.98px) {
+  .luxury-hero {
+    min-height: 420px;
+    height: min(72vh, 560px);
+  }
+
+  .luxury-hero__content {
+    padding: 0 1rem;
+  }
+
+  .luxury-hero__ctas {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  .luxury-hero .luxury-hero__ctas .btn-luxury {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .luxury-hero {
+    min-height: 320px;
+    height: 58vh;
+  }
+}
+
+/* ----- Shop by collection ----- */
+@media (max-width: 575.98px) {
+  .luxury-first-banner-strip__title {
+    font-size: clamp(22px, 6vw, 30px);
+    margin-bottom: 0.65rem;
+  }
+
+  .luxury-category-tile__title {
+    font-size: 12px;
+  }
+}
+
+/* ----- Split path / engagement banner ----- */
+@media (max-width: 991.98px) {
+  .luxury-split-path-banner {
+    padding: 1.5rem 0;
+  }
+
+  .luxury-split-path-banner__headline {
+    font-size: clamp(26px, 7vw, 36px) !important;
+  }
+
+  .luxury-split-path-banner__ctas {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .luxury-split-path-banner__figure {
+    max-width: min(100%, 320px);
+    margin-top: 1rem;
+  }
+
+  .luxury-split-path-banner__watermark {
+    font-size: clamp(48px, 14vw, 80px);
+  }
+}
+
+/* ----- Trust band ----- */
+@media (max-width: 575.98px) {
+  .custom-trust {
+    padding: 1.75rem 0 1.5rem;
+  }
+
+  .custom-trust .trust-heading {
+    font-size: clamp(20px, 5.5vw, 26px);
+    margin-bottom: 1.25rem;
+    padding: 0 0.25rem;
+  }
+
+  .custom-trust .trust-photo--igi,
+  .custom-trust .trust-photo--checkout,
+  .custom-trust .trust-photo--large {
+    min-width: 0;
+    max-width: min(100%, 280px);
+    height: 110px;
+    min-height: 100px;
+  }
+
+  .custom-trust .trust-photo {
+    width: 88px;
+    height: 88px;
+  }
+}
+
+/* ----- Trending picks ----- */
+@media (max-width: 991.98px) {
+  .luxury-trending-picks {
+    padding: 2rem 0;
+  }
+
+  .luxury-trending-picks__inner {
+    padding: 0;
+  }
+
+  .luxury-trending-picks__intro {
+    text-align: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .luxury-trending-pick-card {
+    flex: 0 0 min(72vw, 280px);
+    min-width: min(72vw, 280px);
+    scroll-snap-align: start;
+  }
+
+  .luxury-trending-pick-card__thumb {
+    height: 180px;
+  }
+
+  .popular-category.theme3 .links,
+  .popular-category .links {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.5rem;
+    padding-bottom: 0.35rem;
+    justify-content: flex-start;
+  }
+
+  .popular-category .links a {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .luxury-trending-picks__rail {
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.25rem;
+  }
+}
+
+/* ----- Diamond inspection ----- */
+@media (max-width: 991.98px) {
+  .luxury-inspection {
+    grid-template-columns: 1fr !important;
+    min-height: 0 !important;
+  }
+
+  .luxury-inspection__content {
+    padding: 1.25rem 0.5rem 1.5rem !important;
+  }
+
+  .luxury-inspection__media img {
+    width: 100%;
+    max-height: 320px;
+    object-fit: cover;
+  }
+}
+
+/* ----- Diamond revolution ----- */
+@media (max-width: 767.98px) {
+  .luxury-diamond-revolution__viewport {
+    min-height: 200px;
+  }
+
+  .luxury-diamond-revolution__shape-slide img {
+    max-height: 180px;
+    width: auto;
+    margin: 0 auto;
+  }
+
+  .luxury-diamond-revolution__caption-row h3 {
+    font-size: clamp(18px, 5vw, 24px);
+  }
+}
+
+/* ----- Crowning jewels ----- */
+@media (max-width: 991.98px) {
+  .luxury-crowning-jewels__media img {
+    min-height: 220px;
+    max-height: 320px;
+  }
+
+  .luxury-crowning-jewels__watermark {
+    font-size: clamp(40px, 12vw, 72px);
+    white-space: normal;
+  }
+
+  .luxury-crowning-jewels__panel {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .luxury-reimagined-banner__media img {
+    width: 100%;
+    max-height: 360px;
+    object-fit: cover;
+  }
+
+  .luxury-reimagined-banner__copy {
+    padding: 0.5rem 0;
+  }
+}
+
+/* ----- Theme 4 featured grid ----- */
+@media (max-width: 991.98px) {
+  .featured-for-home3 .row {
+    row-gap: 0.75rem;
+  }
+
+  .featured-for-home3 .h3-category img {
+    width: 100%;
+    height: auto;
+    max-height: 220px;
+    object-fit: cover;
+  }
+
+  .featured-for-home3 .middleImage {
+    order: -1;
+  }
+
+  .featured-for-home3 .middleImage .h3-category img {
+    max-height: 280px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .featured-for-home3 .col-sm-12 {
+    width: 100%;
+  }
+
+  .featured-for-home3 .h3-category {
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+}
+
+/* Product card: align wishlist + cart (icon font baselines vary; overrides styles.min.css inline-block row) */
+.product-card .product-button-group {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  column-gap: 8px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding-inline: 6px;
+}
+
+.product-card .product-button-group .product-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  margin: 0;
+  line-height: 1;
+  box-sizing: border-box;
+}
+
+.product-card .product-button-group .product-button > i {
+  display: block;
+  line-height: 1;
+}
+
+/* Catalog toolbar: grid/list toggles (.grid-view / .list-view / .active) — center FA icons vs old span-based icons */
+.shop-top-filter-wrapper .shop-view {
+  display: inline-flex;
+  align-items: stretch;
+}
+
+.shop-top-filter-wrapper .shop-view > a {
+  float: none;
+  margin-left: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shop-top-filter-wrapper .shop-view > a:not(:first-child) {
+  margin-left: -1px;
+}
+
+.shop-top-filter-wrapper .shop-view > a > i {
+  line-height: 1;
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+@media (max-width: 767.98px) {
+  .shop-top-filter-wrapper .shop-view {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    float: none;
+  }
+
+  /* List layout row: absolute button group stays centered within fixed-width thumb */
+  .product-card.product-list .product-button-group {
+    padding-inline: 4px;
+  }
+}
+
+/* ----- Product grids & catalog ----- */
+@media (max-width: 767.98px) {
+  .product-card .product-thumb img,
+  .product-card .product-thumb .lazy,
+  .slider-item .product-thumb img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+
+  .shop-top-filter-wrapper .row {
+    row-gap: 0.75rem;
+  }
+
+  .genius-banner img {
+    width: 100%;
+    height: auto;
+    min-height: 160px;
+    object-fit: cover;
+  }
+}
+
+/* ----- Product detail ----- */
+@media (max-width: 991.98px) {
+  .pdp-support-links .d-flex {
+    justify-content: center !important;
+  }
+
+  .pdp-support-links__item {
+    flex: 1 1 45%;
+    min-width: 120px;
+  }
+}
+
+/* ----- Footer ----- */
+@media (max-width: 991.98px) {
+  .site-footer .luxury-footer__links {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.65rem;
+    text-align: center;
+  }
+
+  .site-footer .widget {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* ----- Trust strip (top bar) ----- */
+@media (max-width: 767.98px) {
+  .trust-strip__inner--rotating,
+  .trust-strip__inner--persistent {
+    font-size: 11px;
+    padding: 0.4rem 0.5rem;
+  }
+
+  .trust-strip__slide--cluster {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem 0.5rem;
+  }
+
+  .trust-strip__sep {
+    display: none;
+  }
+}
+
+/* ----- Mobile tab bar + safe area ----- */
+@media (max-width: 991.98px) {
+  body.front-has-mobile-tabs {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .mobile-tab-bar {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .scroll-to-top-btn {
+    bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* ----- Forms & checkout ----- */
+@media (max-width: 575.98px) {
+  .checkout-experience-card .checkout-packaging-visual .col-6,
+  .checkout-experience-card .row.g-4 > [class*='col-'] {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .subscriber-form .input-group {
+    flex-wrap: wrap;
+  }
+
+  .btn-luxury,
+  .btn-primary {
+    min-height: 44px;
+  }
+}
+
+/* ----- Education / tables ----- */
+@media (max-width: 767.98px) {
+  .table,
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

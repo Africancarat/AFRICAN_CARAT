@@ -1,0 +1,21 @@
+/* Global styles */
+
+/* Legacy product-detail-box (non–iJewel PDP) */
+.product-detail-box {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.25rem;
+  padding: 1.25rem 1.35rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #d4c5a9;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+@media (max-width: 575.98px) {
+  .product-detail-box {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    padding: 1rem 1.1rem;
+  }
+}

@@ -1,0 +1,42 @@
+clear
+
+
+// Security middleware issues
+
+
+
+Chapter - 3
+3.2 3.7(a)
+
+Chapter - 4
+4.1 (a,b,c)
+4.2 (a,b)
+4.5
+4.9
+
+Chapter - 5
+5.5(a)
+
+
+
+
+<?php
+
+namespace App\Providers;
+
+use Illuminate\{
+    Support\ServiceProvider,
+    Support\Facades\DB
+};
+use Illuminate\Pagination\Paginator;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function boot()
+    {
+        if (!file_exists('core/storage/installed') && !request()->is('install') && !request()->is('install/*')) {
+            header("Location: install/");
+            exit;
+        }
+    }
+}
