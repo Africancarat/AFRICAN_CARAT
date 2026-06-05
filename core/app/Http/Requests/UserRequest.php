@@ -31,7 +31,8 @@ class UserRequest extends FormRequest
         $password = Auth::check() ? '' : 'required|';
         $check = Auth::check() ? 'nullable|min:6|max:16' : "min:6|max:16|confirmed";
 
-        $recaptcha = $setting->recaptcha == 1 && !Auth::check() ? 'required|captcha' : 'nullable';
+        // reCAPTCHA optional on register while widget is hidden in register.blade.php
+        $recaptcha = 'nullable';
 
         return [
             'g-recaptcha-response' => $recaptcha,

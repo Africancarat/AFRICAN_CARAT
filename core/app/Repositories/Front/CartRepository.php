@@ -65,8 +65,29 @@ class CartRepository
         $cart = Session::get('cart');
 
         $item = Item::where('id', $input['item_id'])
-            ->select('id', 'name', 'photo', 'discount_price', 'previous_price', 'slug', 'item_type', 'license_name', 'license_key', 'stock', 'metal_type', 'gold_karat', 'pdp_metal_variants')
+            ->select(
+                'id',
+                'name',
+                'photo',
+                'discount_price',
+                'previous_price',
+                'slug',
+                'item_type',
+                'license_name',
+                'license_key',
+                'stock',
+                'metal_type',
+                'gold_karat',
+                'pdp_metal_variants',
+                'item_price_id'
+            )
             ->first();
+
+        if ($item) {
+            // Ensure jewelry tier pricing can resolve itemPrice during add-to-cart,
+            // even when the request doesn't send line_base_price (catalog quick-add, wishlist add).
+            $item->loadMissing('itemPrice');
+        }
 
         if ($item->item_type == 'normal') {
             $checkQty = isset($input['quantity']) ? $input['quantity'] : (isset($request->quantity) ? $request->quantity : 1);
@@ -475,6 +496,18 @@ class CartRepository
             if ($tierUnit !== null && $tierUnit > 0) {
                 return $tierUnit;
             }
+
+            // If no explicit selection was provided (catalog quick-add), mirror PDP defaults (18K + VVS/EF when present).
+            $defaults = JewelryDynamicPriceService::resolveDefaultSelections($item);
+            $tierDefault = JewelryDynamicPriceService::resolveUnitBasePriceForSelection(
+                $item,
+                $defaults['karat'] !== '' ? $defaults['karat'] : null,
+                $defaults['color'] !== '' ? $defaults['color'] : null,
+                $defaults['clarity'] !== '' ? $defaults['clarity'] : null
+            );
+            if ($tierDefault !== null && $tierDefault > 0) {
+                return $tierDefault;
+            }
         }
 
         $raw = $input['line_base_price'] ?? null;
@@ -754,6 +787,22 @@ class CartRepository
         }
         if ($clarity === null && $allowedClarity !== []) {
             $clarity = $allowedClarity[0];
+        }
+
+        // For migrated iJewel jewelry, items.gold_karat / diamond_attributes.* can be empty.
+        // Match the same default selection logic used on PDP and catalog tier pricing.
+        if ($karat === null || $clarity === null || $color === null) {
+            $item->loadMissing('itemPrice');
+            $defaults = JewelryDynamicPriceService::resolveDefaultSelections($item);
+            if ($karat === null && ($defaults['karat'] ?? '') !== '') {
+                $karat = $defaults['karat'];
+            }
+            if ($clarity === null && ($defaults['clarity'] ?? '') !== '') {
+                $clarity = $defaults['clarity'];
+            }
+            if ($color === null && ($defaults['color'] ?? '') !== '') {
+                $color = $defaults['color'];
+            }
         }
 
         return [
