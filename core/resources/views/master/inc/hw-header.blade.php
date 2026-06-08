@@ -16,7 +16,9 @@
             <div class="hw-header__tools hw-header__tools--left">
                 <button type="button"
                     class="hw-header__icon-btn hw-header__menu-btn mobile-menu-toggle"
-                    aria-label="{{ __('Menu') }}">
+                    aria-label="{{ __('Menu') }}"
+                    aria-expanded="false"
+                    aria-controls="hw-mobile-drawer">
                     <i class="icon-menu" aria-hidden="true"></i>
                 </button>
                 @if ($setting->is_contact == 1)
@@ -42,7 +44,7 @@
 
             <div class="hw-header__tools hw-header__tools--right">
                 @if ($setting->is_contact == 1)
-                    <a href="{{ route('front.contact') }}" class="hw-header__icon-btn"
+                    <a href="{{ route('front.contact') }}" class="hw-header__icon-btn d-none d-lg-inline-flex"
                         aria-label="{{ __('Store locator') }}" title="{{ __('Store locator') }}">
                         <i class="icon-map-pin" aria-hidden="true"></i>
                     </a>
@@ -140,12 +142,16 @@
         </div>
     </nav>
 
-    <div class="mobile-menu">
+    <button type="button" class="hw-drawer-backdrop mobile-menu-toggle" aria-label="{{ __('Close menu') }}"
+        tabindex="-1"></button>
+
+    <div class="mobile-menu" id="hw-mobile-drawer" aria-hidden="true">
         <div class="mm-heading-area">
             <h4>{{ __('Navigation') }}</h4>
-            <div class="toolbar-item visible-on-mobile mobile-menu-toggle mm-t-two">
-                <a href="#"><div><i class="icon-x"></i></div></a>
-            </div>
+            <button type="button" class="hw-drawer__close mobile-menu-toggle mm-t-two"
+                aria-label="{{ __('Close menu') }}">
+                <i class="icon-x" aria-hidden="true"></i>
+            </button>
         </div>
         <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item" role="presentation">
@@ -162,8 +168,6 @@
                 <nav class="hw-mobile-menu" id="hw-mobile-menu" aria-label="{{ __('Main menu') }}">
                     @include('master.inc.site-menu', ['navContext' => 'mobile'])
                     <ul class="hw-mobile-menu__extras list-unstyled">
-                        <li><a href="{{ route('front.order.track') }}">{{ __('Track Order') }}</a></li>
-                        <li><a href="{{ route('diamonds.compare.index') }}">{{ __('Compare') }}</a></li>
                         @guest
                             <li><a href="{{ route('user.login') }}">{{ __('Login') }}</a></li>
                             <li><a href="{{ route('user.register') }}">{{ __('Register') }}</a></li>
@@ -171,12 +175,6 @@
                             <li><a href="{{ route('user.dashboard') }}">{{ __('Dashboard') }}</a></li>
                             <li><a href="{{ route('user.logout') }}">{{ __('Logout') }}</a></li>
                         @endguest
-                        @foreach (DB::table('currencies')->get() as $currency)
-                            <li>
-                                <a class="{{ Session::get('currency') == $currency->id ? 'active' : ($currency->is_default == 1 && !Session::has('currency') ? 'active' : '') }}"
-                                    href="{{ route('front.currency.setup', $currency->id) }}">{{ $currency->name }}</a>
-                            </li>
-                        @endforeach
                     </ul>
                 </nav>
             </div>

@@ -3,15 +3,11 @@
     <div class="col-lg-3 luxury-mega-col">
         <p class="luxury-mega-kicker">{{ __('Shop by style') }}</p>
         @foreach ([
-            ['label' => __('All rings'), 'href' => url('/catalog?category=Engagement-Rings')],
-            ['label' => __('Minimalist rings'), 'href' => url('/catalog?' . http_build_query(['subcategory' => 'Minimalist-Rings']))],
-            ['label' => __('Solitaire rings'), 'href' => url('/catalog?' . http_build_query(['subcategory' => 'Solitaire-Rings']))],
-            ['label' => __('Halo rings'), 'href' => url('/catalog?' . http_build_query(['subcategory' => 'Halo-Rings']))],
-            ['label' => __('Bezel rings'), 'href' => url('/catalog?' . http_build_query(['subcategory' => 'Bezel-Rings']))],
-            ['label' => __('Toi et Moi rings'), 'href' => url('/catalog?' . http_build_query(['subcategory' => 'Toi-et-mo-Rings']))],
-            ['label' => __('Eternity band'), 'href' => url('/catalog?' . http_build_query(['subcategory' => 'Eternity-Rings']))],
-            ['label' => __('Stacking rings'), 'href' => url('/catalog?' . http_build_query(['subcategory' => 'Stacking-Rings']))],
-            ['label' => __('Bridal sets'), 'href' => url('/catalog?' . http_build_query(['subcategory' => 'Bridal-Set']))],
+            ['label' => __('rings'), 'href' => url('/catalog?category=Engagement-Rings')],
+            ['label' => __('necklace'), 'href' => url('/catalog?' . http_build_query(['subcategory' => 'necklace']))],
+            ['label' => __('earrings'), 'href' => url('/catalog?' . http_build_query(['subcategory' => 'earrings']))],
+            ['label' => __('pendants'), 'href' => url('/catalog?' . http_build_query(['subcategory' => 'pendants']))],
+
         ] as $row)
             <a href="{{ $row['href'] }}" class="luxury-mega-link">
                 <span>{{ $row['label'] }}</span>
@@ -59,7 +55,7 @@
     @include('master.inc.mega-menus.partials.image-column', [
         'columnClass' => 'col-lg-3',
         'image' => 'African carat/1.png',
-        'href' => url('/catalog?' . http_build_query(['category' => 'Engagement-Rings'])),
+        'href' => url('/catalog?' . http_build_query(['category' => 'Jewellery'])),
         'alt' => __('Bridal jewelry'),
     ])
 </div>

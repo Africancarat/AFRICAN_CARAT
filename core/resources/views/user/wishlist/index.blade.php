@@ -45,7 +45,15 @@
                       <div class="product-item"><a class="product-thumb" href="{{route('front.product',$product->slug)}}"><img src="{{url('/core/public/storage/images/'.$product->photo)}}" alt="Product"></a>
                         <div class="product-info">
                           <h4 class="product-title"><a href="{{route('front.product',$product->slug)}}">{{$product->name}}</a></h4>
-                          <div class="text-lg mb-1">{{PriceHelper::grandCurrencyPrice($product)}}</div>
+                          <div class="text-lg mb-1">@if($product->item_price_id)
+
+                                  {{ \App\Services\JewelryDynamicPriceService::catalogCurrencyPrice($product) }}
+
+                              @else
+
+                                  {{ PriceHelper::grandCurrencyPrice($product) }}
+
+                              @endif</div>
                           <div class="text-sm">{{__('Availability')}}:
                             <div class="d-inline text-{{$product->stock == 0 ? 'danger' : 'success'}}">{{$product->stock == 0 ? __('Out of stock') : __('In Stock')}}</div>
                           </div>

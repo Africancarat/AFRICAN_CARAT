@@ -26,7 +26,8 @@
                             <a class="luxury-nav__link hw-drawer__label" href="{{ $finalHref }}"
                                 target="{{ $linkTarget }}">{{ $link['text'] }}</a>
                             <button type="button" class="hw-drawer__toggle btn btn-link p-0 border-0"
-                                aria-expanded="false" aria-controls="{{ $drawerPanelId }}">
+                                aria-expanded="false" aria-controls="{{ $drawerPanelId }}"
+                                aria-label="{{ __('Expand') }} {{ $link['text'] }}">
                                 <i class="icon-chevron-down" aria-hidden="true"></i>
                             </button>
                         </div>
@@ -47,8 +48,16 @@
                 </li>
             @elseif (!array_key_exists('children', $link))
                 <li class="luxury-nav__item @if(request()->url() == ($link['href'] == null ? $href : $link['href'])) active @endif">
-                    <a class="luxury-nav__link" href="{{ $link['href'] == null ? $href : $link['href'] }}"
-                        target="{{ $linkTarget }}">{{ $link['text'] }}</a>
+                    @if ($isMobileNav)
+                        <div class="hw-drawer__row hw-drawer__row--leaf">
+                            <a class="luxury-nav__link hw-drawer__label"
+                                href="{{ $link['href'] == null ? $href : $link['href'] }}"
+                                target="{{ $linkTarget }}">{{ $link['text'] }}</a>
+                        </div>
+                    @else
+                        <a class="luxury-nav__link" href="{{ $link['href'] == null ? $href : $link['href'] }}"
+                            target="{{ $linkTarget }}">{{ $link['text'] }}</a>
+                    @endif
                 </li>
             @else
                 <li class="t-h-dropdown luxury-nav__item luxury-nav__item--has-children">
@@ -57,7 +66,8 @@
                             <a class="luxury-nav__link hw-drawer__label" href="{{ $href }}"
                                 target="{{ $linkTarget }}">{{ $link['text'] }}</a>
                             <button type="button" class="hw-drawer__toggle btn btn-link p-0 border-0"
-                                aria-expanded="false" aria-controls="{{ $drawerChildrenId }}">
+                                aria-expanded="false" aria-controls="{{ $drawerChildrenId }}"
+                                aria-label="{{ __('Expand') }} {{ $link['text'] }}">
                                 <i class="icon-chevron-down" aria-hidden="true"></i>
                             </button>
                         </div>

@@ -29,7 +29,7 @@
                                     @endif
                                 </li>
                             @endif
-                            <li>{{ $da->is_lab_grown ? __('Lab-grown') : __('Natural') }}</li>
+                            <li>{{__('Natural') }}</li>
                         </ul>
                     @endif
                     <div class="mt-auto d-flex flex-wrap gap-2 align-items-center">

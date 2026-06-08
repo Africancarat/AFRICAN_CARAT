@@ -29,12 +29,25 @@
                         <form  class="row" action="{{route('user.profile.update')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="avater" class="form-label">Default file input example</label>
-                                    <input class="form-control" type="file" name="photo" id="avater">
-                                @error('photo')
-                                <p class="text-danger">{{$message}}</p>
-                                @enderror
+                                <div class="form-group ">
+                                    <label for="avatar" class="form-label">
+                                        {{ __('Profile Picture') }}
+                                    </label>
+
+                                    <input
+                                            class="form-control"
+                                            type="file"
+                                            name="photo"
+                                            id="avatar"
+                                            accept="image/png,image/jpeg,image/jpg,image/webp">
+
+                                    <small class="text-muted">
+                                        {{ __('Supported formats: JPG, JPEG, PNG, WEBP. Max size 2MB.') }}
+                                    </small>
+
+                                    @error('photo')
+                                    <p class="text-danger mt-1">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">

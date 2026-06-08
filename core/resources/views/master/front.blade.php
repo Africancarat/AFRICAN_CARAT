@@ -259,8 +259,8 @@ body_theme4 @endif
             </div>
             <div class="luxury-footer__middle container">
                 <div class="luxury-footer__links">
-                    <a href="/education/guides/engagement-ring-guide">Engagement Rings Guide</a>
-                    <a href="/education/guides/wedding-bands-guide">Wedding Rings Guide</a>
+                    <a href="/education/guides/engagement-ring-guide">Jewellery Guide</a>
+                    <a href="/education/guides/wedding-bands-guide">Lightweight Jewellery Guide</a>
                     <a href="/education/guides/metal-types">Metals</a>
                     <a href="{{ route('education.index') }}">Diamonds Guide</a>
                     <a href="{{ route('education.compliance') }}">{{ __('Trust & compliance') }}</a>
@@ -269,7 +269,7 @@ body_theme4 @endif
                 </div>
             </div>
             <!-- Copyright-->
-            <p class="footer-copyright"> {{ $setting->copy_right }}</p>
+            <p class="footer-copyright">{{ str_ireplace(['Monteluca', 'Montelua'], 'AfricanCarat', $setting->copy_right) }}</p>
         </div>
     </footer>
 

@@ -111,8 +111,12 @@ $(function ($) {
 
         // Mobile drawer: accordion for mega menus + child dropdowns (desktop nav unchanged)
         (function () {
+            var $hwHeader = $('.site-header--hw');
             var $drawerNav = $('#hw-mobile-menu');
-            if (!$drawerNav.length) {
+            var $mobileMenu = $hwHeader.find('.mobile-menu');
+            var $drawerBackdrop = $hwHeader.find('.hw-drawer-backdrop');
+            var $menuBtn = $hwHeader.find('.hw-header__menu-btn');
+            if (!$drawerNav.length || !$mobileMenu.length) {
                 return;
             }
 
@@ -148,7 +152,19 @@ $(function ($) {
                 });
             }
 
-            $drawerNav.on('click', '.hw-drawer__toggle', function (e) {
+            function syncDrawerChrome() {
+                var isOpen = $mobileMenu.hasClass('open');
+                $menuBtn.attr('aria-expanded', isOpen ? 'true' : 'false');
+                $mobileMenu.attr('aria-hidden', isOpen ? 'false' : 'true');
+                $drawerBackdrop.toggleClass('is-visible', isOpen);
+                $hwHeader.find('.mobile-menu-toggle').toggleClass('active', isOpen);
+                $('body').toggleClass('hw-drawer-open', isOpen);
+                if (!isOpen) {
+                    closeDrawerBranches(null);
+                }
+            }
+
+            $drawerNav.on('click.hwDrawer', '.hw-drawer__toggle', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
                 var $btn = $(this);
@@ -171,11 +187,24 @@ $(function ($) {
                 }
             });
 
-            $(document).on('click', '.site-header--hw .mobile-menu-toggle', function () {
-                closeDrawerBranches(null);
+            $(document).on('click.hwDrawer', '.site-header--hw .mobile-menu-toggle', function () {
+                window.setTimeout(syncDrawerChrome, 0);
+            });
+
+            $(window).on('resize.hwDrawer', function () {
+                $drawerNav.find('li.is-open > .hw-drawer__panel.is-open').each(function () {
+                    this.style.maxHeight = this.scrollHeight + 'px';
+                });
+            });
+
+            $(document).on('keydown.hwDrawer', function (e) {
+                if (e.key === 'Escape' && $mobileMenu.hasClass('open')) {
+                    $hwHeader.find('.mobile-menu-toggle').first().trigger('click');
+                }
             });
 
             $drawerNav.find('.hw-drawer__panel').css('max-height', '0px');
+            syncDrawerChrome();
         })();
 
         // Flash Deal Area Start
